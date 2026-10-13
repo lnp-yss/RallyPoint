@@ -1,0 +1,23 @@
+[Unit]
+Description=Rally Point guided court switching
+After=network-online.target mariadb.service rallypoint-web.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=rallypoint
+Group=rallypoint
+WorkingDirectory=/opt/rallypoint/app
+EnvironmentFile=/etc/rallypoint/web.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/rallypoint/app/.venv-web/bin/python -m pickleball_scoreboard.web.court_move_worker
+Restart=on-failure
+RestartSec=5
+CPUWeight=20
+IOWeight=20
+Nice=10
+UMask=0077
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

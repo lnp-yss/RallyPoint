@@ -1,0 +1,7 @@
+[Unit]
+Description=Rally Point daily backup and restore verification
+[Service]
+Type=oneshot
+TimeoutStartSec=300
+UMask=0077
+ExecStart=/usr/bin/python3 /opt/rallypoint/app/scripts/backup_scoreboard.py --database rallypoint_v3

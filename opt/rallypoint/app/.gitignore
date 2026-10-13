@@ -1,0 +1,9 @@
+.venv/
+.venv-dev/
+__pycache__/
+.pytest_cache/
+logs/
+data/current_match.json
+data/settings.json
+*.tmp
+artifacts/

@@ -1,0 +1,8 @@
+[Unit]
+Description=Rally Point automatic daily backups
+[Timer]
+OnCalendar=*-*-* 04:00:00 Asia/Shanghai
+Persistent=true
+RandomizedDelaySec=300
+[Install]
+WantedBy=timers.target

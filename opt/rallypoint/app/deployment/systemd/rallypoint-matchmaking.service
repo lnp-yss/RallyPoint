@@ -1,0 +1,19 @@
+[Unit]
+Description=Rally Point dynamic court matchmaking
+After=network.target mariadb.service rallypoint-web.service
+
+[Service]
+Type=simple
+User=rallypoint
+Group=rallypoint
+WorkingDirectory=/opt/rallypoint/app
+EnvironmentFile=/etc/rallypoint/web.env
+ExecStart=/opt/rallypoint/app/.venv-web/bin/python -m pickleball_scoreboard.web.scheduler
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

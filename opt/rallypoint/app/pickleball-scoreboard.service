@@ -1,0 +1,17 @@
+[Unit]
+Description=Rally Point Pickleball Scoreboard (desktop user session)
+After=graphical-session.target
+PartOf=graphical-session.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+WorkingDirectory="@PROJECT_DIR@"
+ExecStart=/bin/bash "@PROJECT_DIR@/run_scoreboard.sh"
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=15
+KillSignal=SIGTERM
+# Installed as a user service; the desktop hook imports the session environment.
+# Do not enable this as a root/system boot service.

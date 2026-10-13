@@ -1,0 +1,201 @@
+/* Courtside presentation: recommendations/rankings left, live courts right. */
+.courtside-toolbar { justify-content: space-between; margin: 22px 0; }
+.courtside-toolbar p { margin: 0; }
+.courtside-board {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 18px;
+    padding: clamp(14px, 1.6vw, 30px); min-height: 72vh;
+    display: flex; flex-direction: column; gap: clamp(12px, 1.3vw, 24px);
+}
+.courtside-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.courtside-heading h1 { margin: 0; font-size: clamp(26px, 2.8vw, 48px); letter-spacing: 3px; }
+.courtside-heading p { margin: 6px 0 0; color: var(--muted); font-size: 12px; letter-spacing: 2px; }
+.courtside-layout { display: grid; grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr); gap: clamp(12px, 1.3vw, 24px); flex: 1; min-height: 0; }
+.courtside-sidebar { display: flex; flex-direction: column; gap: clamp(12px, 1.3vw, 24px); min-width: 0; min-height: 0; }
+.courtside-next, .courtside-ranking, .courtside-court {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+    padding: clamp(12px, 1.3vw, 24px); min-width: 0; min-height: 0;
+}
+.courtside-next { border-top: 4px solid var(--teal); flex: 0.9; }
+.courtside-ranking { border-top: 4px solid var(--amber); flex: 1.1; }
+.courtside-sidebar h2 { font-size: clamp(19px, 1.6vw, 30px); margin: 6px 0 16px; }
+.courtside-sidebar .eyebrow { margin: 0; font-size: 10px; }
+.courtside-next h3 { font-size: clamp(18px, 1.7vw, 32px); line-height: 1.25; overflow-wrap: anywhere; }
+.next-team-label { font-size: 11px; letter-spacing: 2px; font-weight: 800; margin: 16px 0 4px; }
+.next-versus { margin: 8px 0; color: var(--muted); font-size: 11px; letter-spacing: 3px; }
+.next-note { font-size: 12px; margin: 16px 0 8px; }
+.next-waiting { font-weight: 800; font-size: 12px; margin: 14px 0 0; color: var(--amber); letter-spacing: 1px; }
+.courtside-scores { display: grid; grid-auto-rows: minmax(180px, 1fr); gap: clamp(12px, 1.3vw, 24px); min-height: 0; min-width: 0; }
+.courtside-scores.many-courts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.courtside-scores.compact-courts .courtside-court { padding: 12px; }
+.courtside-scores.compact-courts .courtside-court header h2 { font-size: clamp(20px, 1.4vw, 27px); }
+.courtside-scores.compact-courts .courtside-team { padding: 4px; }
+.courtside-scores.compact-courts .courtside-team h3 { font-size: clamp(17px, 1.25vw, 24px); }
+.courtside-scores.compact-courts .court-player-names { font-size: clamp(14px, 1vw, 19px); }
+.courtside-scores.compact-courts .courtside-score { font-size: clamp(48px, 3.8vw, 73px); }
+.courtside-scores.compact-courts .courtside-teams { margin: 6px 0; }
+.courtside-court { display: flex; flex-direction: column; justify-content: space-between; }
+.courtside-court header, .court-live-footer { flex-shrink: 0; }
+.courtside-court header h2 { margin: 0; font-size: clamp(20px, 1.9vw, 35px); letter-spacing: 1px; }
+.court-custom-name { font-size: 12px; margin: 4px 0; }
+.courtside-teams { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0 8px; }
+.courtside-team { text-align: center; padding: 8px; border: 2px solid transparent; border-radius: 10px; position: relative; }
+.courtside-team h3 { color: var(--teal); font-size: clamp(17px, 1.8vw, 30px); line-height: 1.15; overflow-wrap: anywhere; }
+.courtside-team.b h3 { color: var(--amber); }
+.courtside-team.is-serving { border-color: var(--teal); }
+.courtside-team.b.is-serving { border-color: var(--amber); }
+.court-player-names { color: var(--muted); font-size: clamp(14px, 1.25vw, 24px); line-height: 1.2; margin: 6px 0; overflow-wrap: anywhere; }
+.courtside-score { display: block; font-size: clamp(52px, 5.8vw, 110px); line-height: 1; font-weight: 850; font-variant-numeric: tabular-nums; }
+.courtside-team small { display: block; font-size: 11px; letter-spacing: 1px; margin-top: 6px; }
+.court-serving { display: flex; justify-content: center; align-items: center; color: var(--teal); font-size: 10px; font-weight: 850; gap: 3px; margin-top: 7px; min-height: 12px; }
+.courtside-team.b .court-serving { color: var(--amber); }
+.court-serving .serve-dot { width: 8px; height: 8px; margin: 0 2px; }
+.court-live-footer { margin: 4px 0 0; color: var(--muted); text-align: center; font-size: 11px; letter-spacing: 1px; }
+.court-idle { font-size: clamp(16px, 1.4vw, 24px); color: var(--muted); line-height: 1.5; margin: 20px 0; }
+.courtside-court .court-idle { text-align: center; margin: auto; padding: 30px 10px; }
+.courtside-ranking-table { border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; font-size: clamp(14px, 1.1vw, 21px); }
+.courtside-ranking-table th { text-align: left; color: var(--muted); font-size: 0.65em; letter-spacing: 1px; text-transform: uppercase; padding: 8px 3px; }
+.courtside-ranking-table td { border-top: 1px solid var(--line); padding: 10px 3px; }
+.courtside-ranking-table td:first-child { color: var(--amber); font-weight: 850; }
+.courtside-ranking-table td:nth-child(2) { font-weight: 700; overflow-wrap: anywhere; }
+.courtside-ranking > small { display: block; margin-top: 12px; font-size: 10px; }
+#courtside-display:fullscreen { width: 100vw; height: 100vh; background: var(--bg); padding: 0; overflow: auto; }
+#courtside-display:fullscreen .courtside-board { height: 100%; min-height: 100%; border-radius: 0; border: 0; }
+#courtside-display:fullscreen .courtside-scores { overflow-y: auto; }
+@media (max-width: 800px) {
+    .courtside-layout { grid-template-columns: 1fr; }
+    .courtside-scores { grid-template-columns: 1fr; }
+    .courtside-scores.many-courts { grid-template-columns: 1fr; }
+    .courtside-sidebar { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
+    .courtside-next, .courtside-ranking { padding: 12px; }
+    .courtside-heading .badge { font-size: 9px; }
+}
+@media (max-width: 500px) {
+    .courtside-sidebar { grid-template-columns: 1fr; }
+}
+@media (max-height: 800px) and (min-width: 801px) {
+    #courtside-display:fullscreen .courtside-board { padding: 12px; gap: 10px; }
+    #courtside-display:fullscreen .courtside-heading h1 { font-size: 28px; }
+    #courtside-display:fullscreen .courtside-layout, #courtside-display:fullscreen .courtside-sidebar,
+    #courtside-display:fullscreen .courtside-scores { gap: 10px; }
+    #courtside-display:fullscreen .courtside-next, #courtside-display:fullscreen .courtside-ranking,
+    #courtside-display:fullscreen .courtside-court { padding: 10px; }
+    #courtside-display:fullscreen .courtside-sidebar h2 { font-size: 18px; line-height: 1.15; margin: 4px 0 6px; }
+    #courtside-display:fullscreen .courtside-sidebar .eyebrow { font-size: 9px; line-height: 1.2; }
+    #courtside-display:fullscreen .courtside-next h3 { font-size: 21px; line-height: 1.15; margin: 8px 0; }
+    #courtside-display:fullscreen .next-team-label { display: none; }
+    #courtside-display:fullscreen .next-versus { margin: 3px 0; }
+    #courtside-display:fullscreen .next-note { margin: 6px 0 0; font-size: 10px; }
+    #courtside-display:fullscreen .next-waiting { margin-top: 6px; font-size: 11px; }
+    #courtside-display:fullscreen .courtside-scores { grid-auto-rows: minmax(170px, 1fr); }
+    #courtside-display:fullscreen .courtside-court header h2 { font-size: 20px; line-height: 1.2; }
+    #courtside-display:fullscreen .courtside-team h3 { font-size: 20px; }
+    #courtside-display:fullscreen .court-player-names { font-size: 14px; margin: 4px 0; }
+    #courtside-display:fullscreen .courtside-score { font-size: 48px; }
+    #courtside-display:fullscreen .courtside-team small { display: none; }
+    #courtside-display:fullscreen .court-serving { line-height: 1; margin-top: 4px; }
+    #courtside-display:fullscreen .court-live-footer { font-size: 10px; line-height: 1.2; margin-top: 2px; }
+    #courtside-display:fullscreen .courtside-teams { margin: 5px 0; }
+    #courtside-display:fullscreen .courtside-team { padding: 4px; }
+    #courtside-display:fullscreen .courtside-ranking-table { font-size: 16px; line-height: 1.2; }
+    #courtside-display:fullscreen .courtside-ranking-table td { padding: 6px 3px; }
+}
+
+.courtside-next h3 {margin:6px 0; font-size:clamp(17px,1.4vw,27px)}
+.courtside-next .next-note {margin:8px 0}
+.courtside-next .next-versus {margin:3px 0}
+.on-deck-names {font-size:clamp(13px,1vw,19px);margin:5px 0;line-height:1.25;overflow-wrap:anywhere}
+@media (max-height:760px) {
+#courtside-display:fullscreen .courtside-next {padding:12px}
+#courtside-display:fullscreen .courtside-next h2 {font-size:18px;margin:4px 0 8px}
+#courtside-display:fullscreen .courtside-next h3 {font-size:18px;margin:4px 0}
+#courtside-display:fullscreen .courtside-next .next-note {font-size:10px;margin:6px 0}
+#courtside-display:fullscreen .courtside-next .next-waiting {font-size:10px;margin:7px 0 0}
+#courtside-display:fullscreen .on-deck-names {font-size:13px}
+}
+
+/* Final results remain visible until the next match starts or is assigned. */
+.courtside-court.is-finished {
+    background: linear-gradient(135deg, #1c365c, #13243d);
+    border-color: #527dad;
+}
+.courtside-court .court-finished-header {
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center; gap: 12px;
+}
+.court-finished-title { text-align: center; min-width: 0; }
+.court-finished-title strong {
+    display: block; font-size: clamp(20px, 2vw, 38px);
+    font-weight: 850; line-height: 1.1; letter-spacing: 1px;
+}
+.court-finished-title span {
+    display: block; margin-top: 5px; font-size: 10px;
+    color: #b7cbe2; font-weight: 700; letter-spacing: 2px;
+}
+.courtside-team.is-winner { border-color: var(--teal); background: #29cdd20c; }
+.courtside-team.b.is-winner { border-color: var(--amber); background: #ffb0430c; }
+.court-winner-label {
+    display: block; margin-top: 8px; color: var(--teal);
+    font-size: 11px; letter-spacing: 2px; font-weight: 850;
+}
+.courtside-team.b .court-winner-label { color: var(--amber); }
+.is-finished .court-live-footer { color: #d3e3f5; }
+.many-courts .court-finished-header { grid-template-columns: 1fr auto; }
+.many-courts .court-finished-title { grid-column: 1 / -1; grid-row: 2; }
+.many-courts .court-finished-title strong { font-size: clamp(20px, 1.7vw, 30px); }
+@media (max-width: 1100px) {
+    .courtside-court .court-finished-header { grid-template-columns: 1fr auto; gap: 8px; }
+    .court-finished-title { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-height: 800px) and (min-width: 801px) {
+    #courtside-display:fullscreen .court-finished-title strong { font-size: 22px; }
+    #courtside-display:fullscreen .court-finished-title span { font-size: 9px; margin-top: 3px; }
+    #courtside-display:fullscreen .court-winner-label { margin-top: 4px; font-size: 10px; }
+}
+
+/* Assigned players get a readable pre-match card instead of zero scores. */
+.courtside-court.is-ready { background: linear-gradient(135deg, #092447, #07192e); border-color: #4f789f; }
+.court-ready-title { text-align: center; margin: 10px 0 4px; }
+.court-ready-title strong { display: block; font-size: clamp(28px, 3.1vw, 58px); line-height: 1.05; font-weight: 900; letter-spacing: 2px; }
+.court-ready-title span { display: block; color: var(--muted); font-size: 10px; letter-spacing: 2px; margin-top: 6px; }
+.ready-teams .courtside-team { padding: 0 0 12px; border-color: var(--teal); overflow: hidden; }
+.ready-teams .courtside-team.b { border-color: var(--amber); }
+.ready-teams h3 { background: var(--teal); color: #06182b; margin: 0; padding: 8px; font-size: clamp(18px, 1.7vw, 30px); }
+.ready-teams .b h3 { background: var(--amber); color: #06182b; }
+.ready-teams .court-player-names { color: white; font-size: clamp(20px, 2.15vw, 40px); font-weight: 850; padding: 8px; margin: 5px 0; }
+.ready-first-serve { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 0 8px; color: var(--teal); font-size: clamp(12px, 1vw, 20px); }
+.b .ready-first-serve { color: var(--amber); }
+.ready-ball { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 50% 25%, #092447 0 2px, transparent 3px), radial-gradient(circle at 25% 55%, #092447 0 2px, transparent 3px), radial-gradient(circle at 75% 55%, #092447 0 2px, transparent 3px), radial-gradient(circle at 50% 80%, #092447 0 2px, transparent 3px), #e5ef32; }
+.ready-match-settings { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; border: 1px solid #4f789f; border-radius: 8px; padding: 8px; font-size: clamp(10px, .8vw, 15px); font-weight: 750; text-transform: uppercase; }
+.court-ready-instruction { text-align: center; font-size: clamp(10px, .85vw, 16px); color: var(--teal); font-weight: 800; margin: 9px 0 0; letter-spacing: 1px; }
+.compact-courts .court-ready-title strong { font-size: clamp(24px, 2vw, 38px); }
+.compact-courts .ready-teams .court-player-names { font-size: clamp(18px, 1.5vw, 28px); }
+@media (max-height:800px) and (min-width:801px) {
+    #courtside-display:fullscreen .court-ready-title { margin: 5px 0; }
+    #courtside-display:fullscreen .court-ready-title strong { font-size: 30px; }
+    #courtside-display:fullscreen .ready-teams h3 { font-size: 18px; padding: 5px; }
+    #courtside-display:fullscreen .ready-teams .court-player-names { font-size: 22px; padding: 4px; }
+    #courtside-display:fullscreen .ready-match-settings { padding: 5px; font-size: 10px; }
+}
+
+.preview-recommendation + .preview-recommendation{border-top:1px solid #35516b;margin-top:14px;padding-top:12px}
+.preview-recommendation h2{font-size:clamp(17px,1.3vw,25px);margin:6px 0 10px}
+#courtside-display:fullscreen .preview-recommendation + .preview-recommendation{margin-top:8px;padding-top:6px}
+
+/* Recommendations fit their content; rankings use the remaining TV height. */
+.courtside-next{flex:0 0 auto;overflow:visible}
+.courtside-ranking{flex:1 1 0;overflow:auto}
+
+/* Dedicated Preview TV: browser kiosk owns fullscreen, no staff controls. */
+body.courtside-kiosk { margin:0; cursor:none; }
+.courtside-kiosk > .topbar, .courtside-kiosk > nav,
+.courtside-kiosk > footer, .courtside-kiosk #app > :not(#courtside-display),
+.courtside-kiosk #notification { display:none; }
+.courtside-kiosk main { max-width:none; width:100%; margin:0; padding:0; }
+.courtside-kiosk #courtside-display { height:100vh; padding:10px; box-sizing:border-box; }
+.courtside-kiosk .courtside-board { height:100%; min-height:0; box-sizing:border-box; }
+.courtside-kiosk .courtside-scores { overflow:auto; }
+
+/* Remove the whole branding/event header and let the court grid grow. */
+.courtside-board.header-hidden > .courtside-heading { display:none; }
+
+.courtside-kiosk > .pa-toolbar { display:none; }

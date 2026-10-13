@@ -1,0 +1,2 @@
+pygame>=2.5,<3
+gpiozero>=2.0,<3

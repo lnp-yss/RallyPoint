@@ -1,0 +1,27 @@
+# Install as rallypoint-scoreboard.service on a fresh Court 2 Pi only.
+[Unit]
+Description=Rally Point Court 2 HDMI Scoreboard
+After=systemd-user-sessions.service rallypoint-tunnel.service
+Wants=rallypoint-tunnel.service
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+User=rallypoint
+Group=rallypoint
+WorkingDirectory=/opt/rallypoint/app
+Environment=HOME=/home/rallypoint
+EnvironmentFile=/etc/rallypoint/client.env
+ExecStart=/usr/bin/python3 -m pickleball_scoreboard.main
+TTYPath=/dev/tty1
+TTYReset=yes
+TTYVHangup=yes
+TTYVTDisallocate=yes
+StandardInput=tty-force
+StandardOutput=journal
+StandardError=journal
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

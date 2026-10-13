@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="{{ csrf }}"><title>Rally Point · Club Management</title><link rel="stylesheet" href="{{ url_for('static',filename='club.css') }}?v=20261010-end-casual"><link rel="stylesheet" href="{{ url_for('static',filename='courtside.css') }}?v=20261010-end-casual"><script src="{{ url_for('static',filename='announcements.js') }}?v=20261010-end-casual" defer></script><script src="{{ url_for('static',filename='rotation.js') }}?v=20261010-end-casual" defer></script><script src="{{ url_for('static',filename='score_sounds.js') }}?v=20261010-end-casual" defer></script><script src="{{ url_for('static',filename='club.js') }}?v=20261010-end-casual" defer></script></head>
+<body data-base="{{ request.script_root }}" data-page="{{ page }}" data-role="{{ role or '' }}" data-host-admin="{{ 'true' if host_admin else 'false' }}">
+<header class="topbar"><a class="brand" href="{{ request.script_root }}/"><span class="brand-mark">RP</span><span>{{ club_name }}<small>CLUB WORKSPACE</small></span></a><span id="connection" class="badge">LOCAL CLUB</span>{% if role %}<div class="account-controls">{% if active_username %}<span class="active-user" title="Signed in as {{ active_username }}">{{ active_username }}</span>{% endif %}<form action="{{ '/logout' if host_access else request.script_root + '/logout' }}" method="post"><input type="hidden" name="csrf" value="{{ host_access.csrf if host_access else csrf }}"><button class="quiet">Sign out</button></form></div>{% else %}<a href="{{ request.script_root }}/login">Staff login</a>{% endif %}</header>
+{% macro menu_link(path,label,active_page=None,global_link=False) -%}
+<a href="{{ path if global_link else request.script_root + '/' + path }}"{% if page == (active_page or path) or (page == 'dashboard' and path == '') %} class="active" aria-current="page"{% endif %}>{{ label }}</a>
+{%- endmacro %}
+<nav aria-label="Club navigation" class="club-menu">
+{% for path,label in [('','Dashboard'),('play-events','Event'),('setup','Match setup'),('players','Players'),('queue','Queue'),('preview','Preview')] %}{{ menu_link(path,label) }}{% endfor %}
+<details class="settings-menu">
+<summary{% if page not in ['dashboard','play-events','setup','players','queue','preview'] %} class="active"{% endif %}>Settings <span aria-hidden="true">▾</span></summary>
+<div class="settings-dropdown">
+{% if role == 'ADMIN' %}{{ menu_link('settings','Admin Settings') }}{% endif %}
+{% if role in ['ADMIN','OPERATOR'] %}{{ menu_link('settings/bluetooth','Bluetooth','bluetooth') }}{{ menu_link('settings/announcements','Announcements','announcements') }}{% endif %}
+{{ menu_link('control','Controls') }}
+{{ menu_link('checkin','Check-in') }}
+{{ menu_link('live','Live scores') }}
+{{ menu_link('leaderboard','Leaderboard') }}
+{{ menu_link('/clubs','Switch club',global_link=True) }}
+<details class="courts-submenu">
+<summary>Courts <span aria-hidden="true">▾</span></summary>
+<div>
+{{ menu_link('courts','All courts') }}
+{{ menu_link('settings/courts','Court Settings','rotation-courts') }}
+{% if role == 'ADMIN' %}{{ menu_link('/court-manager','Move courts','court-manager',True) }}{% endif %}
+</div>
+</details>
+{{ menu_link('settings/matchmaking','Matchmaking Settings','rotation-matchmaking') }}
+{{ menu_link('tournaments','Tournaments') }}
+{{ menu_link('matches','History') }}
+</div>
+</details>
+</nav>
+<main><div id="notification" role="status" aria-live="polite"></div><div id="app"><p class="muted">Loading your court…</p></div></main>
+<footer>Rally Point · Local court operations · HDMI scoring stays independent</footer>
+</body></html>
+
+

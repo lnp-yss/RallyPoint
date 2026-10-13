@@ -1,0 +1,16 @@
+[Unit]
+Description=Rally Point court connection to central server
+Wants=network-online.target
+After=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+User=rallypoint
+Group=rallypoint
+EnvironmentFile=/etc/rallypoint/tunnel.env
+ExecStart=/usr/bin/ssh -NT -i ${RALLYPOINT_SSH_KEY} -o BatchMode=yes -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o CheckHostIP=no -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 -o ServerAliveCountMax=3 -L 127.0.0.1:3307:127.0.0.1:3306 -R 127.0.0.1:${RALLYPOINT_REVERSE_PORT}:127.0.0.1:8765 ${RALLYPOINT_SSH_USER}@${RALLYPOINT_HUB_HOST}
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

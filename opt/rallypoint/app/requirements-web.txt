@@ -1,0 +1,8 @@
+# Optional V3 services; the original HDMI application does not require these.
+Flask>=3.1,<4
+SQLAlchemy>=2.0,<3
+PyMySQL>=1.1,<2
+gunicorn>=23,<26; sys_platform != 'win32'
+
+# Offline, printable court QR codes (SVG generation, no imaging dependency).
+qrcode>=8,<9
